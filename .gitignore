@@ -1,0 +1,35 @@
+# Файлы IDE и ОС
+.idea/
+.vscode/
+*.suo
+*.user
+*.swp
+*.swo
+.DS_Store
+
+# Виртуальное окружение
+venv/
+.env/
+env/
+
+# Артефакты Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Логи и временные файлы
+*.log
+*.sqlite
+*.db
+data/logs/
+data/db/
+
+# Тестовые данные и кэш
+.pytest_cache/
+.coverage
+
+# Другие файлы
+*.key
+*.pem
