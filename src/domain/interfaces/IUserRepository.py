@@ -13,3 +13,6 @@ class IUserRepository:
 
     def update(self, user: User):
         raise NotImplementedError
+
+    def delete(self, user_id: str):
+        raise NotImplementedError

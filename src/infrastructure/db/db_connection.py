@@ -1,17 +1,17 @@
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent.parent.parent / "data" / "financial.db"
+DB_PATH = Path(__file__).parent.parent.parent.parent / "data" / "financial.db"
 
 def get_db_connection():
-    conn = None
     try:
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
-        print("Connection to database established.")
+        print(f"LOG ✅ Подключение к базе данных установлено: {DB_PATH}")
+        return conn
     except sqlite3.Error as e:
-        print(f"Error: {e}")
-    return conn
+        print(f"LOG ❌ Ошибка подключения: {e}")
+        raise
 
 def init_db():
     with get_db_connection() as conn:
@@ -19,6 +19,7 @@ def init_db():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id TEXT PRIMARY KEY,
+                password_hash TEXT NOT NULL,
                 full_name TEXT NOT NULL,
                 passport TEXT NOT NULL,
                 phone TEXT NOT NULL,
@@ -35,7 +36,7 @@ def init_db():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS banks (
                 id TEXT PRIMARY KEY,
-                bic TEXT PRIMARY KEY,
+                bic TEXT NOT NULL,
                 name TEXT NOT NULL
             )
         ''')
@@ -52,7 +53,7 @@ def init_db():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS enterprises (
                 id TEXT PRIMARY KEY,
-                unp TEXT PRIMARY KEY,
+                unp TEXT NOT NULL,
                 legal_name TEXT NOT NULL,
                 bank_id TEXT NOT NULL,
                 legal_address TEXT NOT NULL,
