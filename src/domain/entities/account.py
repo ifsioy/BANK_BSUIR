@@ -1,18 +1,17 @@
-from src.domain.entities.user import User
-from src.domain.entities.bank import Bank
+import uuid
 
 class Account:
-    def __init__(self, account_number: str, user: User, balance: float, bank: Bank):
+    def __init__(self, user_id: str, balance: float, bank_id: str, id = str(uuid.uuid4())):
         if balance < 0:
             raise ValueError("Balance cannot be negative.")
 
-        self.account_number = account_number
-        self.user = user
+        self.id = id
+        self.user_id = user_id
         self.balance = balance
-        self.bank = bank
+        self.bank_id = bank_id
 
     def __str__(self):
-        return (f"Account(account_number={self.account_number}, "
-                f"user={self.user.full_name}, "
+        return (f"Account(id={self.id}, "
+                f"user={self.user_id}, "
                 f"balance={self.balance}, "
-                f"bank={self.bank.name})")
+                f"bank={self.bank_id})")
