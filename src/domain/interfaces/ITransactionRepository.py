@@ -8,5 +8,8 @@ class ITransactionRepository:
     def get_by_id(self, transaction_id: str):
         raise NotImplementedError
 
+    def get_by_account_id(self, account_id: str):
+        raise NotImplementedError
+
     def add(self, transaction: Transaction):
         raise NotImplementedError

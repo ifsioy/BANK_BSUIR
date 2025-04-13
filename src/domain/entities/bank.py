@@ -2,8 +2,8 @@ import uuid
 
 
 class Bank:
-    def __init__(self, name: str, bic: str, id = str(uuid.uuid4())):
-        self.id = id
+    def __init__(self, name: str, bic: str, id = None):
+        self.id = id if id else str(uuid.uuid4())
         self.name = name
         self.bic = bic
 

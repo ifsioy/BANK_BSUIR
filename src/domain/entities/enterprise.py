@@ -3,8 +3,8 @@ import uuid
 from src.domain.enums import EnterpriseType
 
 class Enterprise:
-    def __init__(self, enterprise_type: EnterpriseType, legal_name: str, unp: str, bank_bic: str, legal_address: str, id = str(uuid.uuid4())):
-        self.id = id
+    def __init__(self, enterprise_type: EnterpriseType, legal_name: str, unp: str, bank_bic: str, legal_address: str, id = None):
+        self.id = id if id else str(uuid.uuid4())
         self.enterprise_type = enterprise_type
         self.legal_name = legal_name
         self.unp = unp

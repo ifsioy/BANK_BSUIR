@@ -39,6 +39,26 @@ class SQLiteTransactionRepository(ITransactionRepository):
                 )
             return None
 
+    def get_by_account_id(self, account_id: str):
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT id, from_id, to_id, amount, date FROM transactions
+                WHERE from_id = ? OR to_id = ?
+            ''', (account_id, account_id))
+            rows = cursor.fetchall()
+            transactions = []
+            for row in rows:
+                transaction = Transaction(
+                    from_id=row[1],
+                    to_id=row[2],
+                    amount=row[3],
+                    date=row[4],
+                    id=row[0]
+                )
+                transactions.append(transaction)
+            return transactions
+
     def add(self, transaction: Transaction):
         with get_db_connection() as conn:
             cursor = conn.cursor()

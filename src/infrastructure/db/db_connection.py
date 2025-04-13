@@ -34,6 +34,14 @@ def init_db():
             )
         ''')
         cursor.execute('''
+            CREATE TABLE IF NOT EXISTS user_banks (
+                user_id TEXT NOT NULL,
+                bank_id TEXT NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users (id)
+                FOREIGN KEY (bank_id) REFERENCES banks (id)
+            )
+        ''')
+        cursor.execute('''
             CREATE TABLE IF NOT EXISTS banks (
                 id TEXT PRIMARY KEY,
                 bic TEXT NOT NULL,
@@ -46,6 +54,7 @@ def init_db():
                 user_id TEXT NOT NULL,
                 balance REAL NOT NULL,
                 bank_id TEXT NOT NULL,
+                status TEXT NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES users (id),
                 FOREIGN KEY (bank_id) REFERENCES banks (id)
             )

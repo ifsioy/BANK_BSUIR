@@ -4,6 +4,15 @@ from src.infrastructure.db.db_connection import get_db_connection
 
 
 class SQLiteBankRepository(IBankRepository):
+    def get_all(self) -> list:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                            SELECT id, name, bic FROM banks
+                        ''')
+            rows = cursor.fetchall()
+            return [Bank(id=row[0], name=row[1], bic=row[2]) for row in rows]
+
     def get_by_id(self, bank_id: str):
         with get_db_connection() as conn:
             cursor = conn.cursor()

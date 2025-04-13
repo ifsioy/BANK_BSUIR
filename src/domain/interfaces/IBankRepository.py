@@ -2,6 +2,9 @@ from src.domain.entities.bank import Bank
 
 
 class IBankRepository:
+    def get_all(self):
+        raise NotImplementedError()
+
     def get_by_id(self, bank_id: str):
         raise NotImplementedError("Method not implemented.")
 

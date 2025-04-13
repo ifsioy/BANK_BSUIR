@@ -4,6 +4,7 @@ from src.domain.validators.validator import PassportValidator, PhoneValidator, E
 class UserInputHandler:
     @staticmethod
     def get_user_input():
+        print('--- Регистрация нового пользователя ---')
         data = {
             "full_name": input("Введите ФИО: ").strip(),
             "passport": input("Введите серию и номер паспорта (AB1234567): ").strip(),

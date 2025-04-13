@@ -1,7 +1,7 @@
 import uuid
 
 class Installment:
-    def __init__(self, term: int, interest_rate: float, user_id: str, total_amount: float, id = str(uuid.uuid4())):
+    def __init__(self, term: int, interest_rate: float, user_id: str, total_amount: float, id = None):
         if term <= 0:
             raise ValueError("Installment term must be a positive value.")
         if interest_rate < 0:
@@ -9,7 +9,7 @@ class Installment:
         if total_amount < 0:
             raise ValueError("Total amount cannot be negative.")
 
-        self.id = id
+        self.id = id if id else str(uuid.uuid4())
         self.term = term
         self.interest_rate = interest_rate
         self.user_id = user_id

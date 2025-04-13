@@ -13,3 +13,15 @@ class IAccountRepository:
 
     def delete(self, account_id: str):
         raise NotImplementedError
+
+    def get_user_accounts(self, user_id: str, bank_id: str) -> list:
+        raise NotImplementedError
+
+    def change_status(self, account_id: str, status: str):
+        raise NotImplementedError
+
+    def get_all_inactive(self, bank_id: str) -> list[Account]:
+        raise NotImplementedError
+
+    def _row_to_account(self, row) -> Account:
+        raise NotImplementedError
