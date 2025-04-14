@@ -1,6 +1,7 @@
 from src.domain.entities.account import Account
 from src.domain.entities.user import User
 from src.application.services.account_operation_service import AccountOperationService
+from src.logger import logger
 
 
 class AccountOperationCLI:
@@ -37,8 +38,10 @@ class AccountOperationCLI:
                 else:
                     print("Неверный выбор")
             except ValueError as e:
+                logger.error(e)
                 print(f"Ошибка: {str(e)}")
             except Exception as e:
+                logger.error(e)
                 print(f"Произошла ошибка: {str(e)}")
 
     def _deposit_flow(self):

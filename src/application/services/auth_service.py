@@ -3,6 +3,7 @@ from src.domain.enums import Role
 from src.domain.exeptions import UserAlreadyExists
 from src.infrastructure.repositories.user_repository import SQLiteUserRepository
 from src.infrastructure.security.password_hasher import BCryptPasswordHasher
+from src.logger import logger
 
 
 class AuthService:
@@ -32,17 +33,16 @@ class AuthService:
 
     def login_user(self, user_data: dict) -> User:
         user_repo = SQLiteUserRepository()
-        print(user_data["id"])
-        print(type(user_data["id"]))
 
         user = user_repo.get_by_id(user_data["id"])
 
         if not user:
+            logger.error("Пользователь не найден")
             raise ValueError("Пользователь не найден")
 
-        print(user_data["password"],'-'*5, user.password_hash)
 
         if not BCryptPasswordHasher().verify(user_data["password"], user.password_hash):
+            logger.error("Неверный пароль")
             raise ValueError("Неверный пароль")
 
         return user

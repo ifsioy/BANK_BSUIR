@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 
 from src.infrastructure.repositories.account_repository import SQLiteAccountRepository
+from src.logger import logger
 
 
 class Transaction:
@@ -13,8 +14,10 @@ class Transaction:
         from_account = SQLiteAccountRepository().get_by_id(from_id)
         to_account = SQLiteAccountRepository().get_by_id(to_id)
 
-        print("from_account", from_account)
-        print("to_account", to_account)
+
+        logger.info("Transaction created")
+        logger.info(f"From: {from_account}")
+        logger.info(f"To: {to_account}")
 
         if not id and abs(from_account.balance - amount) > 1e-2:
             raise ValueError("Insufficient funds in the source account.")

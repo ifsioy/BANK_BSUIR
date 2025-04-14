@@ -1,16 +1,18 @@
 import sqlite3
 from pathlib import Path
 
+from src.logger import logger
+
 DB_PATH = Path(__file__).parent.parent.parent.parent / "data" / "financial.db"
 
 def get_db_connection():
     try:
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
-        print(f"LOG ✅ Подключение к базе данных установлено: {DB_PATH}")
+        logger.info(f"Connected to database: {DB_PATH}")
         return conn
     except sqlite3.Error as e:
-        print(f"LOG ❌ Ошибка подключения: {e}")
+        logger.error(f"Error connecting to database: {e}")
         raise
 
 def init_db():

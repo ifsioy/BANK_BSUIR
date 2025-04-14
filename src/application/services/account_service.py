@@ -3,6 +3,7 @@ from src.domain.enums import Role, Status
 from src.domain.exeptions import PermissionDeniedError, AccountFrozenError
 from src.infrastructure.repositories.account_repository import SQLiteAccountRepository
 from src.infrastructure.repositories.user_repository import SQLiteUserRepository
+from src.logger import logger
 
 
 class AccountService:
@@ -21,7 +22,7 @@ class AccountService:
             bank_id=bank_id,
             balance=initial_balance
         )
-        print(new_account)
+        logger.info("New account created", new_account)
         return self.account_repo.add(new_account)
 
     def delete_account(self, account_id: str):
